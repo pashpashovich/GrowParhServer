@@ -1,1 +1,6 @@
 rootProject.name = 'GrowPathServer'
+
+include 'api-gateway'
+include 'trainee-service'
+include 'notification-service'
+include 'common'

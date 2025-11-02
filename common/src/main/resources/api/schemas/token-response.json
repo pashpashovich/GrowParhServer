@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "properties": {
+    "access_token": {
+      "type": "string",
+      "description": "JWT access token",
+      "example": "eyJhbGciOiJSUzI1NiIsInR5cCIgOi..."
+    },
+    "refresh_token": {
+      "type": "string",
+      "description": "Refresh token for getting new access tokens",
+      "example": "eyJhbGciOiJSUzI1NiIsInR5cCIgOi..."
+    },
+    "expires_in": {
+      "type": "integer",
+      "description": "Access token expiration time in seconds",
+      "example": 300
+    },
+    "refresh_expires_in": {
+      "type": "integer",
+      "description": "Refresh token expiration time in seconds",
+      "example": 1800
+    },
+    "token_type": {
+      "type": "string",
+      "description": "Token type",
+      "example": "Bearer"
+    },
+    "scope": {
+      "type": "string",
+      "description": "Token scope",
+      "example": "openid profile email roles"
+    }
+  }
+}

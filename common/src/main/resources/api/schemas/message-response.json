@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "Response message",
+      "example": "Successfully logged out"
+    }
+  }
+}
+

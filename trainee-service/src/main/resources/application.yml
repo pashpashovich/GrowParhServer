@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: trainee-service
+  datasource:
+    url: ${TRAINEE_DB_URL:jdbc:postgresql://localhost:5432/TRAINEE_DB}
+    username: ${TRAINEE_DB_USERNAME:postgres}
+    password: ${TRAINEE_DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:create}
+    show-sql: ${JPA_SHOW_SQL:true}
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: ${JPA_FORMAT_SQL:true}
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: ${KAFKA_TRAINEE_GROUP_ID:trainee-service-group}
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_URL:http://localhost:8090}/realms/${KEYCLOAK_REALM:growpath}
+          jwk-set-uri: ${KEYCLOAK_URL:http://localhost:8090}/realms/${KEYCLOAK_REALM:growpath}/protocol/openid-connect/certs
+
+server:
+  port: ${TRAINEE_SERVICE_PORT:8081}
+
+minio:
+  endpoint: ${MINIO_ENDPOINT:http://localhost:9000}
+  access-key: ${MINIO_ACCESS_KEY:minioadmin}
+  secret-key: ${MINIO_SECRET_KEY:minioadmin}
+  bucket-name: ${MINIO_BUCKET_NAME:growpath-storage}
+
+logging:
+  level:
+    org.springframework.kafka: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.springframework.security: DEBUG

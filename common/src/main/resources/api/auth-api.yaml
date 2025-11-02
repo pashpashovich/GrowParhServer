@@ -1,0 +1,162 @@
+openapi: 3.0.3
+info:
+  title: Authentication API
+  description: API for authentication and authorization operations
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/api/auth
+    description: Local development server
+
+paths:
+  /login:
+    post:
+      tags:
+        - Authentication
+      summary: User login
+      description: Authenticate user with username and password
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/login-request'
+      responses:
+        '200':
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/token-response'
+        '401':
+          description: Authentication failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+
+  /logout:
+    post:
+      tags:
+        - Authentication
+      summary: User logout
+      description: Logout user and invalidate refresh token
+      operationId: logout
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/logout-request'
+      responses:
+        '200':
+          description: Successfully logged out
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/message-response'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+
+  /refresh:
+    post:
+      tags:
+        - Authentication
+      summary: Refresh access token
+      description: Get new access token using refresh token
+      operationId: refreshToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/refresh-token-request'
+      responses:
+        '200':
+          description: Token refreshed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/token-response'
+        '401':
+          description: Invalid refresh token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+
+  /user:
+    get:
+      tags:
+        - User
+      summary: Get current user info
+      description: Get information about the currently authenticated user
+      operationId: getCurrentUser
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user-info-response'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+
+  /validate:
+    get:
+      tags:
+        - Authentication
+      summary: Validate token
+      description: Check if the current token is valid
+      operationId: validateToken
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Token is valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/token-validation-response'
+        '401':
+          description: Token is invalid or expired
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error-response'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    login-request:
+      $ref: './schemas/login-request.json'
+    logout-request:
+      $ref: './schemas/logout-request.json'
+    refresh-token-request:
+      $ref: './schemas/refresh-token-request.json'
+    token-response:
+      $ref: './schemas/token-response.json'
+    user-info-response:
+      $ref: './schemas/user-info-response.json'
+    token-validation-response:
+      $ref: './schemas/token-validation-response.json'
+    message-response:
+      $ref: './schemas/message-response.json'
+    error-response:
+      $ref: './schemas/error-response.json'

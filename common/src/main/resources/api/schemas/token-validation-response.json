@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "valid": {
+      "type": "boolean",
+      "description": "Whether the token is valid",
+      "example": true
+    },
+    "username": {
+      "type": "string",
+      "description": "Username from token",
+      "example": "admin"
+    },
+    "expiresAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Token expiration timestamp",
+      "example": "2024-12-01T12:00:00Z"
+    }
+  }
+}

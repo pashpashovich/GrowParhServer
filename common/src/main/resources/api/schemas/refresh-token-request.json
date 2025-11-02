@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "required": [
+    "refreshToken"
+  ],
+  "properties": {
+    "refreshToken": {
+      "type": "string",
+      "description": "Refresh token to exchange for new access token",
+      "example": "eyJhbGciOiJSUzI1NiIsInR5cCIgOi..."
+    }
+  }
+}

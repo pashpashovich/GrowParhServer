@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "properties": {
+    "username": {
+      "type": "string",
+      "description": "User username",
+      "example": "admin"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "User email",
+      "example": "admin@example.com"
+    },
+    "firstName": {
+      "type": "string",
+      "description": "User first name",
+      "example": "John"
+    },
+    "lastName": {
+      "type": "string",
+      "description": "User last name",
+      "example": "Doe"
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "User roles",
+      "example": [
+        "ROLE_ADMIN",
+        "ROLE_USER"
+      ]
+    },
+    "sub": {
+      "type": "string",
+      "description": "User subject identifier",
+      "example": "123e4567-e89b-12d3-a456-426614174000"
+    }
+  }
+}
